@@ -7,9 +7,9 @@
     - 개발 브랜치
     - 예: `feat/#5`, `fix/#11`
 
-> 작업 단위로 이슈 생성 → 브랜치 생성 → 생성한 브랜치에서 작업 후 끝나면 develop 브랜치로 PR 남기기
+> 작업 단위로 이슈 생성 → 브랜치 생성 → 생성한 브랜치에서 작업 후 끝나면 main 브랜치로 PR 남기기
 >
-> 모든 작업 시작 전 생성한 브랜치에서 develop 브랜치 pull을 받은 후 작업
+> 모든 작업 시작 전 생성한 브랜치에서 main 브랜치 pull을 받은 후 작업
 
 <!-- <img width="838" height="718" alt="Image" src="https://github.com/user-attachments/assets/530e9719-468e-457a-981a-e5fa46af82ff" /> -->
 
