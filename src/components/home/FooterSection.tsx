@@ -17,15 +17,12 @@ export default function FooterSection() {
         </div>
 
         <p className="text-gray-600 mb-2">
-          © 2024 Q+rate. All rights reserved.
+          © 2025 Q+rate. All rights reserved.
         </p>
 
-        <a
-          href="https://readdy.ai/?origin=logo"
-          className="text-violet-600 hover:text-violet-700 transition"
-        >
-          Powered by Readdy
-        </a>
+        <p className="text-violet-600 hover:text-violet-700 transition">
+          A Project by the Q+rate Development Team
+        </p>
       </div>
     </footer>
   );
