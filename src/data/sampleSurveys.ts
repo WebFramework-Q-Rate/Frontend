@@ -1,10 +1,12 @@
+// 설문 질문 타입 정의
 export interface SurveyQuestion {
   id: string;
-  type: "radio" | "checkbox" | "text";
+  type: "radio" | "checkbox" | "text"; // 단선택, 복선택, 텍스트
   question: string;
   options: string[];
 }
 
+// 설문 전체 데이터 타입 정의
 export interface SurveyData {
   id: string;
   title: string;
@@ -12,7 +14,7 @@ export interface SurveyData {
   createdAt: string;
 }
 
-/** 전체 설문 목록 */
+// 샘플 설문 목록 데이터
 export const sampleSurveys = [
   {
     id: "1",
@@ -34,7 +36,7 @@ export const sampleSurveys = [
   },
 ];
 
-/** 설문 상세 데이터 */
+// 샘플 설문 1: 고객 만족도 조사
 export const sampleSurveyData1: SurveyData = {
   id: "1",
   title: "고객 만족도 조사",
@@ -67,6 +69,7 @@ export const sampleSurveyData1: SurveyData = {
   ],
 };
 
+// 샘플 설문 2: 제품 피드백 설문
 export const sampleSurveyData2: SurveyData = {
   id: "2",
   title: "제품 피드백 설문",
@@ -93,6 +96,7 @@ export const sampleSurveyData2: SurveyData = {
   ],
 };
 
+// 샘플 설문 3: 서비스 개선 의견 수집
 export const sampleSurveyData3: SurveyData = {
   id: "3",
   title: "서비스 개선 의견 수집",

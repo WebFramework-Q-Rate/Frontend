@@ -1,4 +1,6 @@
+// 주요 기능 소개 섹션
 export default function FeaturesSection() {
+  // 기능 항목 배열
   const features = [
     {
       title: "빠른 설문 생성",

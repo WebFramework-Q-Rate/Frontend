@@ -5,7 +5,7 @@ import FeaturesSection from "../../components/home/FeaturesSection";
 import RecentSurveys from "../../components/home/RecentSurveys";
 import FooterSection from "../../components/home/FooterSection";
 
-// sample data import
+// 샘플 설문 데이터 임포트
 import {
   sampleSurveys,
   sampleSurveyData1,
@@ -13,6 +13,7 @@ import {
   sampleSurveyData3,
 } from "../../data/sampleSurveys";
 
+// 설문 정보 타입 정의
 export interface Survey {
   id: string;
   title: string;
@@ -20,17 +21,19 @@ export interface Survey {
   responseCount: number;
 }
 
+// 홈페이지 메인 컴포넌트
 export default function HomePage() {
-  const [surveys, setSurveys] = useState<Survey[]>([]);
+  const [surveys, setSurveys] = useState<Survey[]>([]); // 설문 목록 상태 관리
 
+  // 페이지 로드 시 LocalStorage에서 설문 불러오기
   useEffect(() => {
-    /** 1) LocalStorage에서 기존 설문 목록 불러오기 */
     const savedSurveys = localStorage.getItem("surveys");
 
     if (savedSurveys) {
+      // 저장된 설문이 있으면 로드
       setSurveys(JSON.parse(savedSurveys));
     } else {
-      /** 2) 최초 진입 시 샘플 설문 자동 생성 */
+      // 없으면 샘플 설문 자동 생성
       setSurveys(sampleSurveys);
 
       localStorage.setItem("surveys", JSON.stringify(sampleSurveys));
@@ -40,6 +43,7 @@ export default function HomePage() {
     }
   }, []);
 
+  // 페이지 렌더링
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50">
       <Header />

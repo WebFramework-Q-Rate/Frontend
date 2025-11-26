@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import type { Survey } from "../../pages/home/page";
 
+// Props 타입 정의
 interface Props {
   surveys: Survey[];
 }
 
+// 최근 생성된 설문 목록 표시 컴포넌트
 export default function RecentSurveys({ surveys }: Props) {
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8">
