@@ -20,6 +20,7 @@ export default function RecentSurveys({ surveys }: Props) {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-violet-500 via-purple-500 to-fuchsia-500"></div>
             <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
+            <i className="ri-add-line mr-2 text-lg relative z-10"></i>
             <span className="relative z-10">새 설문 만들기</span>
           </Link>
         </div>
@@ -49,6 +50,7 @@ export default function RecentSurveys({ surveys }: Props) {
                       <div className="absolute inset-0 bg-gradient-to-tl from-white/30 to-transparent"></div>
                       <i className="ri-file-list-3-line text-white text-xl relative z-10"></i>
                     </div>
+
                     <span className="text-sm text-gray-600 bg-white/60 px-3 py-1 rounded-full border border-white/40">
                       {survey.createdAt}
                     </span>
@@ -73,10 +75,11 @@ export default function RecentSurveys({ surveys }: Props) {
 
                     <Link
                       to={`/results/${survey.id}`}
-                      className="relative flex-1 px-4 py-2 text-white rounded-lg text-center shadow-md hover:shadow-lg overflow-hidden group"
+                      className="relative flex-1 inline-flex items-center justify-center px-4 py-2 text-white rounded-lg text-center shadow-md hover:shadow-lg overflow-hidden group"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-violet-500 via-purple-500 to-fuchsia-500"></div>
                       <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
+                      <i className="ri-bar-chart-line mr-2 text-lg relative z-10"></i>
                       <span className="relative z-10">결과보기</span>
                     </Link>
                   </div>
