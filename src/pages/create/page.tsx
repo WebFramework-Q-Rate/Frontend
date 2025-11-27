@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/feature/Header';
+import PageHeader from '../../components/feature/PageHeader';
 
 // 설문 문항의 타입 정의
 interface Question {
@@ -29,9 +30,6 @@ export default function CreatePage() {
   // 설문 문항들의 배열 상태 관리
   const [questions, setQuestions] = useState<Question[]>([]);
   
-  // 미리보기 모드 토글 상태 관리
-  const [showPreview, setShowPreview] = useState(false);
-
   /**
    * 새로운 문항을 추가하는 함수
    * - 기본값으로 단일선택(radio) 타입의 빈 문항을 생성
@@ -159,41 +157,21 @@ export default function CreatePage() {
     // 전체 페이지 컨테이너 - 보라색 그라데이션 배경
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-violet-100">
       <Header />
-      
-      <div className="py-8 px-4 sm:px-6 lg:px-8">
+      <div className="py-8 px-4 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          {/* 페이지 헤더 섹션 */}
-          <div className="bg-white/20 backdrop-blur-md rounded-2xl p-6 mb-8 border border-white/30 shadow-xl">
-            <div className="flex items-center justify-between">
-              {/* 제목 및 설명 */}
-              <div>
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">새 설문 만들기</h1>
-                <p className="text-gray-600">설문 제목과 문항을 추가하여 설문을 생성하세요</p>
-              </div>
-              
-              {/* 미리보기 및 저장 버튼 */}
-              <div className="flex space-x-3">
-                {/* 미리보기 토글 버튼 */}
-                <button
-                  onClick={() => setShowPreview(!showPreview)}
-                  className="inline-flex items-center px-6 py-3 bg-white/30 backdrop-blur-sm hover:bg-white/40 text-purple-700 font-medium rounded-full cursor-pointer whitespace-nowrap transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-white/30"
-                >
-                  <i className="ri-eye-line mr-2"></i>
-                  {showPreview ? '편집 모드' : '미리보기'}
-                </button>
-                
-                {/* 설문 저장 버튼 */}
-                <button
-                  onClick={saveSurvey}
-                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500/80 to-violet-600/80 backdrop-blur-sm hover:from-purple-600/90 hover:to-violet-700/90 text-white font-medium rounded-full cursor-pointer whitespace-nowrap transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-white/20"
-                >
-                  <i className="ri-save-line mr-2"></i>
-                  저장하기
-                </button>
-              </div>
-            </div>
-          </div>
-
+          <PageHeader
+          title="새 설문 만들기"
+          description="설문 제목과 문항을 추가하여 설문을 생성하세요"
+          actions={
+            <button
+              onClick={saveSurvey}
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500/80 to-violet-600/80 backdrop-blur-sm hover:from-purple-600/90 hover:to-violet-700/90 text-white font-medium rounded-full cursor-pointer whitespace-nowrap transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-white/20"
+            >
+              <i className="ri-save-line mr-2"></i>
+              저장하기
+            </button>
+          }
+        />ㄴ
           {/* 2열 그리드 레이아웃: 편집 패널 / 미리보기 패널 */}
           <div className="grid lg:grid-cols-2 gap-8">
             {/* 왼쪽: 편집 패널 */}
