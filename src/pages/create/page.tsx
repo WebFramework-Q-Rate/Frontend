@@ -15,6 +15,7 @@ export interface Question {
   options: string[];  // 선택지 배열 (객관식 문항에 사용)
 }
 
+
 // 설문 전체의 타입 정의
 export interface Survey {
   id: string;  // 설문의 고유 식별자
@@ -211,6 +212,7 @@ export default function CreatePage() {
                   새 문항 추가
                 </button>
               </div>
+              </div>
             </div>
 
             {/* 오른쪽: 미리보기 패널 (sticky로 스크롤 시 상단 고정) */}
@@ -223,7 +225,6 @@ export default function CreatePage() {
                   </div>
                   <h2 className="text-xl font-semibold text-gray-800">미리보기</h2>
                 </div>
-
                 {/* 설문 제목이 있을 때: 실제 설문 미리보기 표시 */}
                <SurveyPreview 
                   surveyTitle={surveyTitle} 
@@ -234,7 +235,6 @@ export default function CreatePage() {
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };
