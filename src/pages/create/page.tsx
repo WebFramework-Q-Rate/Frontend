@@ -1,6 +1,6 @@
 // React의 상태 관리 hook과 라우팅 hook을 import
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Header from '../../components/feature/Header';
 import PageHeader from '../../components/feature/PageHeader';
 import SurveyTitleInput from '../../components/survey/SurveyTitleInput';
@@ -26,7 +26,10 @@ export interface Survey {
 
 export default function CreatePage() {
   // 페이지 이동을 위한 navigate 함수
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
+  
+  // 🔹 URL 쿼리스트링(?) 읽기 위한 훅 (예: /create?template=123)
+  const [searchParams] = useSearchParams();
   
   // 설문 제목 상태 관리
   const [surveyTitle, setSurveyTitle] = useState('');
@@ -34,6 +37,37 @@ export default function CreatePage() {
   // 설문 문항들의 배열 상태 관리
   const [questions, setQuestions] = useState<Question[]>([]);
   
+  const [showPreview, setShowPreview] = useState(false);
+
+  // 🔹 템플릿에서 넘어온 설문 불러오기
+  useEffect(() => {
+    const templateId = searchParams.get('template'); // ?template= 값 읽기
+    if (!templateId) return; // 없으면 템플릿 없이 새 설문
+
+    const stored = localStorage.getItem(`survey_${templateId}`); // localStorage 에 저장해 둔 템플릿 설문
+    if (!stored) return;
+
+    try {
+      const parsed: Survey = JSON.parse(stored);
+
+      // 제목 세팅
+      setSurveyTitle(parsed.title || '');
+
+      // 질문 세팅 (옵션이 비어있으면 최소 1개는 있게 보정)
+      const loadedQuestions: Question[] = (parsed.questions || []).map(q => ({
+        ...q,
+        options: q.options && q.options.length > 0 ? q.options : ['']
+      }));
+
+      setQuestions(loadedQuestions);
+
+      // 템플릿으로 들어왔으면 처음에 미리보기 켜둠
+      setShowPreview(true);
+    } catch (err) {
+      console.error('템플릿 로드 중 오류', err);
+    }
+  }, [searchParams]);
+   
   /**
    * 새로운 문항을 추가하는 함수
    * - 기본값으로 단일선택(radio) 타입의 빈 문항을 생성
