@@ -27,6 +27,16 @@ interface Response {
   answer: string | string[]; // 단일 답변(string) 또는 다중 답변(string[])
 }
 
+interface ResponseData {
+  surveyId: string;
+  responses: Response[];
+  respondent: {
+    gender: string;  // 성별
+    age: string;     // 나이대
+  };
+  submittedAt: string;
+}
+
 export default function SurveyPage() {
   // URL 파라미터에서 설문 ID 가져오기
   const { id } = useParams<{ id: string }>();
@@ -102,10 +112,18 @@ export default function SurveyPage() {
       return;
     }
 
-    // 응답 데이터 생성
-    const responseData = {
+    // localStorage에서 로그인한 사용자 정보 가져오기
+    const userInfoString = localStorage.getItem('userInfo');
+    const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
+
+    // 응답 데이터 생성 (사용자 정보 포함)
+    const responseData: ResponseData = {
       surveyId: id,
       responses,
+      respondent: {
+        gender: userInfo?.gender || '미지정',
+        age: userInfo?.age || '미지정'
+      },
       submittedAt: new Date().toISOString()
     };
 
