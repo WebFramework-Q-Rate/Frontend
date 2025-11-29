@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+import Cloud from "react-d3-cloud";
 import { generateWordCloud } from "../../utils/generateWordCloud";
 import { getSentimentAnalysis } from "../../utils/calculateSentiment";
 
@@ -9,24 +11,60 @@ interface TextAnalysisProps {
 export function WordCloud({ textResponses }: TextAnalysisProps) {
   const wordCloudData = generateWordCloud(textResponses);
 
+  const data = useMemo(() => {
+    return wordCloudData.map((item) => ({
+      text: item.word,
+      value: item.count || 1,
+    }));
+  }, [wordCloudData]);
+
+  const maxCount = Math.max(...wordCloudData.map((w) => w.count), 1);
+  const ratio = (value: number) => value / maxCount;
+
   return (
     <div className="bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-white/40">
       <h3 className="text-lg font-medium text-gray-800 mb-4 flex items-center">
         <i className="ri-cloud-line mr-2"></i>
         워드클라우드
       </h3>
-      <div className="flex flex-wrap gap-2 justify-center min-h-[200px] items-center">
-        {wordCloudData.map((item, idx) => (
-          <span
-            key={idx}
-            className="inline-block px-3 py-1 bg-gradient-to-r from-purple-500/80 to-violet-600/80 backdrop-blur-sm text-white rounded-full border border-white/20 hover:scale-110 transition-transform duration-300"
-            style={{
-              fontSize: `${Math.max(12, Math.min(20, item.count * 3 + 10))}px`,
-            }}
+
+      <svg width="0" height="0">
+        <defs>
+          <linearGradient
+            id="WORD_GRADIENT"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
           >
-            {item.word} ({item.count})
-          </span>
-        ))}
+            <stop offset="0%" stopColor="#A78BFA" />
+            <stop offset="100%" stopColor="#6D28D9" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div className="w-full" style={{ height: "320px" }}>
+        {data.length > 0 ? (
+          <Cloud
+            data={data}
+            width={520}
+            height={300}
+            font="Arial"
+            spiral="archimedean"
+            rotate={() => 0}
+            padding={2}
+            fontWeight="bold"
+            fontSize={(d: any) => {
+              const r = Math.pow(ratio(d.value), 2);
+              return 6 + r * 66; // 6px ~ 72px
+            }}
+            fill={() => "url(#WORD_GRADIENT)"}
+          />
+        ) : (
+          <div className="text-center text-gray-500">
+            <p>분석할 텍스트가 없습니다.</p>
+          </div>
+        )}
       </div>
     </div>
   );
