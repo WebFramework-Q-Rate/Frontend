@@ -47,12 +47,27 @@ export default function MyPage() {
     }
   ]);
 
+  const [createdSurveyCount, setCreatedSurveyCount] = useState(0);
+
   useEffect(() => {
     // LocalStorage에서 사용자 정보 불러오기
     const savedUserInfo = localStorage.getItem('userInfo');
     if (savedUserInfo) {
       const parsed = JSON.parse(savedUserInfo);
       setUserInfo(parsed);
+
+      // 현재 사용자가 생성한 설문 개수 계산
+      const savedSurveys = localStorage.getItem('surveys');
+      if (savedSurveys) {
+        try {
+          const surveys = JSON.parse(savedSurveys);
+          const userEmail = parsed.email;
+          const count = surveys.filter((survey: any) => survey.creatorId === userEmail).length;
+          setCreatedSurveyCount(count);
+        } catch (err) {
+          console.error('설문 목록 파싱 오류:', err);
+        }
+      }
     }
 
     // 응답한 설문 목록 불러오기
@@ -89,7 +104,7 @@ export default function MyPage() {
                 email={userInfo.email}
                 joinDate={userInfo.joinDate}
                 surveyCount={respondedSurveys.length}
-                createdSurveyCount={0}
+                createdSurveyCount={createdSurveyCount}
               />
             </div>
 

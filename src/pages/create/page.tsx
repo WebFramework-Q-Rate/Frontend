@@ -22,6 +22,7 @@ export interface Survey {
   title: string;  // 설문 제목
   questions: Question[];  // 설문 문항들의 배열
   createdAt: string;  // 생성 날짜
+  creatorId?: string;  // 생성자 ID (선택적)
 }
 
 export default function CreatePage() {
@@ -166,12 +167,26 @@ export default function CreatePage() {
       return;
     }
 
+    // localStorage에서 현재 로그인한 사용자 정보 가져오기
+    const userInfo = localStorage.getItem('userInfo');
+    let creatorId = undefined;
+
+    if (userInfo) {
+      try {
+        const parsed = JSON.parse(userInfo);
+        creatorId = parsed.email || 'unknown';  // 이메일을 ID로 사용
+      } catch (err) {
+        console.error('사용자 정보 파싱 오류:', err);
+      }
+    }
+
     // 새 설문 객체 생성
     const newSurvey: Survey = {
       id: Date.now().toString(),  // 고유 ID 생성
       title: surveyTitle,
       questions,
-      createdAt: new Date().toISOString().split('T')[0]  // YYYY-MM-DD 형식으로 날짜 저장
+      createdAt: new Date().toISOString().split('T')[0],  // YYYY-MM-DD 형식으로 날짜 저장
+      creatorId  // 생성자 ID 추가
     };
 
     // localStorage에서 기존 설문 목록 가져오기
