@@ -53,13 +53,13 @@ export default function RespondedSurveyList({ surveys }: RespondedSurveyListProp
                       </div>
                     </div>
                     <Link
-                      to={`/results/${survey.id}`}
+                      to={`/myresponse/${survey.id}`}
                       className="relative inline-flex items-center px-5 py-2.5 text-white font-medium rounded-xl cursor-pointer whitespace-nowrap transition-all duration-500 shadow-lg shadow-violet-500/30 hover:shadow-xl hover:shadow-violet-500/40 hover:scale-105 overflow-hidden group"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-violet-500 via-purple-500 to-fuchsia-500"></div>
                       <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
-                      <i className="ri-bar-chart-line mr-2 relative z-10"></i>
-                      <span className="relative z-10">결과보기</span>
+                      <i className="ri-file-text-line mr-2 relative z-10"></i>
+                      <span className="relative z-10">내 응답보기</span>
                     </Link>
                   </div>
                 </div>

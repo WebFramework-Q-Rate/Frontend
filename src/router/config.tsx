@@ -1,11 +1,12 @@
 
-import { RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 import HomePage from '../pages/home/page';
 import CreatePage from '../pages/create/page';
 import SurveyPage from '../pages/survey/page';
 import ResultsPage from '../pages/results/page';
 import TemplatesPage from '../pages/templates/page';
 import MyPage from '../pages/mypage/page';
+import MyResponsePage from '../pages/myresponse/page';
 import LoginPage from '../pages/login/page';
 import SignupPage from '../pages/signup/page';
 import NotFound from '../pages/NotFound';
@@ -34,6 +35,10 @@ const routes: RouteObject[] = [
   {
     path: '/mypage',
     element: <MyPage />
+  },
+  {
+    path: '/myresponse/:id',
+    element: <MyResponsePage />
   },
   {
     path: '/login',
