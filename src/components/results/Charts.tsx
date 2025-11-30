@@ -15,11 +15,12 @@ interface BarChartProps {
   chartData: ChartData[];
 }
 
-// 객관식 차트 컴포넌트 - 막대, 파이, 통계
+// 객관식 차트 컴포넌트 - 막대 그래프
 export function BarChart({ chartData }: BarChartProps) {
   const barColor = "#7C3AED";
   return (
     <div className="results-charts bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-white/40">
+      {/* focus outline 제거 */}
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -33,6 +34,7 @@ export function BarChart({ chartData }: BarChartProps) {
         <i className="ri-bar-chart-line mr-2"></i>
         막대 차트
       </h3>
+      {/* 보기별 응답 수 막대 그래프 */}
       <div className="space-y-4">
         {chartData.map((item, idx) => (
           <div key={idx}>
@@ -43,6 +45,7 @@ export function BarChart({ chartData }: BarChartProps) {
             <div className="w-full bg-white/40 backdrop-blur-sm rounded-full h-6 border border-white/50 flex items-center">
               <div className="w-full px-0">
                 <ResponsiveContainer width="100%" height={28}>
+                  {/* Recharts 막대 그래프로 보기 비율 표시 */}
                   <ReBarChart
                     data={[{ name: item.label, value: item.percentage }]}
                     layout="vertical"
@@ -86,9 +89,11 @@ interface PieChartProps {
   responses: ResponseData[];
 }
 
+// 객관식 차트 컴포넌트 - 파이 차트
 export function PieChart({ chartData, responses }: PieChartProps) {
   return (
     <div className="results-charts bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-white/40">
+      {/* focus outline 제거 */}
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -102,10 +107,12 @@ export function PieChart({ chartData, responses }: PieChartProps) {
         <i className="ri-pie-chart-line mr-2"></i>
         파이 차트
       </h3>
+      {/* 보기별 응답 수 파이 그래프 */}
       <div className="flex items-center justify-center">
         {chartData.length > 0 ? (
           <div className="relative w-48 h-48">
             <ResponsiveContainer width={192} height={192}>
+              {/* Recharts 파이 그래프로 보기 비율 표시 */}
               <RePieChart>
                 <Pie
                   data={chartData.map((c) => ({
@@ -120,6 +127,7 @@ export function PieChart({ chartData, responses }: PieChartProps) {
                   endAngle={270}
                   paddingAngle={2}
                 >
+                  {/* 색상 지정 */}
                   {chartData.map((_, idx) => (
                     <Cell
                       key={`cell-${idx}`}
@@ -134,6 +142,7 @@ export function PieChart({ chartData, responses }: PieChartProps) {
               </RePieChart>
             </ResponsiveContainer>
 
+            {/* 가운데 응답 수 표시 */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-20 h-20 bg-gradient-to-br from-white/80 to-white/60 backdrop-blur-md rounded-full flex flex-col items-center justify-center border-2 border-white/50 shadow-lg">
                 <span className="text-lg font-bold text-purple-700">
@@ -146,6 +155,7 @@ export function PieChart({ chartData, responses }: PieChartProps) {
             {chartData.map((item, idx) => {
               if (item.percentage === 0) return null;
 
+              // 각 조각의 중앙 각도 계산
               let currentAngle = 0;
               for (let i = 0; i < idx; i++) {
                 currentAngle += (chartData[i].percentage / 100) * 360;
@@ -154,6 +164,7 @@ export function PieChart({ chartData, responses }: PieChartProps) {
                 currentAngle + ((item.percentage / 100) * 360) / 2;
               const midAngleRad = (midAngle * Math.PI) / 180;
 
+              // 레이블 위치 계산
               const labelRadius = 55;
               const labelX = 60 + labelRadius * Math.cos(midAngleRad);
               const labelY = 60 + labelRadius * Math.sin(midAngleRad);
@@ -230,6 +241,7 @@ interface StatisticsProps {
   responses: ResponseData[];
 }
 
+// 객관식 차트 컴포넌트 - 통계
 export function Statistics({ chartData, responses }: StatisticsProps) {
   return (
     <div className="bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-white/40">
@@ -238,6 +250,7 @@ export function Statistics({ chartData, responses }: StatisticsProps) {
         상세 통계
       </h3>
       <div className="space-y-3">
+        {/* 보기별 응답 수/비율 카드 */}
         {chartData.map((item, idx) => (
           <div
             key={idx}
@@ -270,6 +283,7 @@ export function Statistics({ chartData, responses }: StatisticsProps) {
         ))}
       </div>
 
+      {/* 전체 응답 수 하이라이트 카드 */}
       <div className="mt-4 p-4 bg-gradient-to-r from-purple-500/20 to-violet-600/20 backdrop-blur-sm rounded-lg border border-white/40">
         <div className="text-center">
           <div className="text-xl font-bold text-gray-800">

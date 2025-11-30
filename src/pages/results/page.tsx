@@ -110,7 +110,7 @@ export default function ResultsPage() {
         <div className="max-w-7xl mx-auto">
           <OverviewSection survey={survey} responses={responses} />
 
-          {/* Results */}
+          {/* 문항별 결과 */}
           <div className="space-y-8">
             {survey.questions.map((question, index) => (
               <QuestionResultCard
