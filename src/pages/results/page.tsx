@@ -106,7 +106,7 @@ export default function ResultsPage() {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-violet-100">
       <Header />
 
-      <div className="py-8 px-4 sm:px-6 lg:px-8">
+      <div id="results-content" className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <OverviewSection survey={survey} responses={responses} />
 

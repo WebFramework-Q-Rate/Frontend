@@ -39,7 +39,79 @@ export default function OverviewSection({
               <i className="ri-share-line mr-2"></i>
               공유하기
             </button>
-            <button className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500/80 to-violet-600/80 backdrop-blur-sm hover:from-purple-600/90 hover:to-violet-700/90 text-white font-medium rounded-full cursor-pointer whitespace-nowrap transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-white/20">
+            <button
+              onClick={async () => {
+                const content = document.getElementById("results-content");
+                if (!content) return;
+
+                try {
+                  const html2canvasMod = await import("html2canvas");
+                  const jspdfMod = await import("jspdf");
+                  const html2canvas = html2canvasMod.default || html2canvasMod;
+                  const jsPDF = jspdfMod.jsPDF || jspdfMod.default || jspdfMod;
+
+                  const canvas = await html2canvas(content, {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: false,
+                  });
+
+                  const imgData = canvas.toDataURL("image/png");
+
+                  const pdf = new jsPDF({
+                    unit: "mm",
+                    format: "a4",
+                    orientation: "p",
+                  });
+                  const pdfWidth = pdf.internal.pageSize.getWidth();
+                  const pdfHeight = pdf.internal.pageSize.getHeight();
+
+                  const imgProps = pdf.getImageProperties(imgData);
+                  const imgWidth = pdfWidth;
+                  const imgHeight =
+                    (imgProps.height * imgWidth) / imgProps.width;
+
+                  let heightLeft = imgHeight;
+                  let position = 0;
+
+                  pdf.addImage(
+                    imgData,
+                    "PNG",
+                    0,
+                    position,
+                    imgWidth,
+                    imgHeight
+                  );
+                  heightLeft -= pdfHeight;
+
+                  while (heightLeft > 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(
+                      imgData,
+                      "PNG",
+                      0,
+                      position,
+                      imgWidth,
+                      imgHeight
+                    );
+                    heightLeft -= pdfHeight;
+                  }
+
+                  const fileName = `${
+                    survey.title
+                      ? survey.title.replace(/[^a-z0-9\-\_\s]/gi, "")
+                      : "survey-results"
+                  }.pdf`;
+                  pdf.save(fileName);
+                  alert("PDF로 저장되었습니다.");
+                } catch (e) {
+                  console.error(e);
+                  window.print();
+                }
+              }}
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500/80 to-violet-600/80 backdrop-blur-sm hover:from-purple-600/90 hover:to-violet-700/90 text-white font-medium rounded-full cursor-pointer whitespace-nowrap transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-white/20"
+            >
               <i className="ri-download-line mr-2"></i>
               PDF 저장
             </button>
@@ -47,7 +119,6 @@ export default function OverviewSection({
         </div>
       </div>
 
-      {/* Overview Cards */}
       <div className="grid md:grid-cols-4 gap-6 mb-8">
         <div className="bg-white/20 backdrop-blur-md rounded-2xl p-6 border border-white/30 shadow-xl text-center">
           <div className="w-12 h-12 bg-gradient-to-br from-blue-500/80 to-cyan-600/80 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border border-white/20">
