@@ -1,57 +1,61 @@
-
-import type { RouteObject } from 'react-router-dom';
-import HomePage from '../pages/home/page';
-import CreatePage from '../pages/create/page';
-import SurveyPage from '../pages/survey/page';
-import ResultsPage from '../pages/results/page';
-import TemplatesPage from '../pages/templates/page';
-import MyPage from '../pages/mypage/page';
-import MyResponsePage from '../pages/myresponse/page';
-import LoginPage from '../pages/login/page';
-import SignupPage from '../pages/signup/page';
-import NotFound from '../pages/NotFound';
+import type { RouteObject } from "react-router-dom";
+import HomePage from "../pages/home/page";
+import CreatePage from "../pages/create/page";
+import SurveyPage from "../pages/survey/page";
+import ResultsPage from "../pages/results/page";
+import TemplatesPage from "../pages/templates/page";
+import MyPage from "../pages/mypage/page";
+import MySurveysPage from "../pages/mysurveys/page";
+import MyResponsePage from "../pages/myresponse/page";
+import LoginPage from "../pages/login/page";
+import SignupPage from "../pages/signup/page";
+import NotFound from "../pages/NotFound";
 
 const routes: RouteObject[] = [
   {
-    path: '/',
-    element: <HomePage />
+    path: "/",
+    element: <HomePage />,
   },
   {
-    path: '/create',
-    element: <CreatePage />
+    path: "/create",
+    element: <CreatePage />,
   },
   {
-    path: '/templates',
-    element: <TemplatesPage />
+    path: "/templates",
+    element: <TemplatesPage />,
   },
   {
-    path: '/survey/:id',
-    element: <SurveyPage />
+    path: "/survey/:id",
+    element: <SurveyPage />,
   },
   {
-    path: '/results/:id',
-    element: <ResultsPage />
+    path: "/results/:id",
+    element: <ResultsPage />,
   },
   {
-    path: '/mypage',
-    element: <MyPage />
+    path: "/mypage",
+    element: <MyPage />,
   },
   {
-    path: '/myresponse/:id',
-    element: <MyResponsePage />
+    path: "/mysurveys",
+    element: <MySurveysPage />,
   },
   {
-    path: '/login',
-    element: <LoginPage />
+    path: "/myresponse/:id",
+    element: <MyResponsePage />,
   },
   {
-    path: '/signup',
-    element: <SignupPage />
+    path: "/login",
+    element: <LoginPage />,
   },
   {
-    path: '*',
-    element: <NotFound />
-  }
+    path: "/signup",
+    element: <SignupPage />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ];
 
 export default routes;
