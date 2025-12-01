@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../../components/feature/Header";
 import FooterSection from "../../components/home/FooterSection";
 import PageHeader from "../../components/feature/PageHeader";
+import DeleteConfirmModal from "../../components/mysurveys/DeleteConfirmModal";
 
 interface StoredSurvey {
   id: string;
@@ -24,6 +25,11 @@ export default function MySurveysPage() {
 
   // 로그인 여부
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // 삭제 모달 관련 상태
+  const [selectedSurvey, setSelectedSurvey] = useState<StoredSurvey | null>(
+    null
+  );
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     // 저장된 토큰 확인 → 로그인 여부 판단
@@ -120,6 +126,15 @@ export default function MySurveysPage() {
     );
   };
 
+  const handleDeleteSurvey = (surveyId: string) => {
+    const updated = surveys.filter((survey) => survey.id !== surveyId);
+    setSurveys(updated);
+    localStorage.setItem("surveys", JSON.stringify(updated));
+    localStorage.removeItem(`survey_${surveyId}`);
+    localStorage.removeItem(`responses_${surveyId}`);
+    setSelectedSurvey(null);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 flex flex-col">
       <Header />
@@ -180,10 +195,22 @@ export default function MySurveysPage() {
                           </h3>
                         </div>
 
-                        {/* 문항 수 */}
-                        <span className="px-3 py-1 rounded-full text-sm bg-white/70 border border-white/60 text-gray-700">
-                          {questionCount}문항
-                        </span>
+                        <div className="flex items-center space-x-2">
+                          {/* 문항 수 */}
+                          <span className="px-3 py-1 rounded-full text-sm bg-white/70 border border-white/60 text-gray-700">
+                            {questionCount}문항
+                          </span>
+                          <button
+                            onClick={() => {
+                              setSelectedSurvey(survey);
+                              setIsDeleteModalOpen(true);
+                            }}
+                            className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50/50 backdrop-blur-sm rounded-lg transition-all duration-300 hover:scale-110"
+                            aria-label="설문 삭제"
+                          >
+                            <i className="ri-delete-bin-line text-lg"></i>
+                          </button>
+                        </div>
                       </div>
 
                       {/* 응답 수 */}
@@ -219,6 +246,21 @@ export default function MySurveysPage() {
       </main>
 
       <FooterSection />
+
+      <DeleteConfirmModal
+        isOpen={isDeleteModalOpen}
+        surveyTitle={selectedSurvey?.title ?? ""}
+        onConfirm={() => {
+          if (selectedSurvey) {
+            handleDeleteSurvey(selectedSurvey.id);
+          }
+          setIsDeleteModalOpen(false);
+        }}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setSelectedSurvey(null);
+        }}
+      />
     </div>
   );
 }

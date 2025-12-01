@@ -10,6 +10,7 @@ export interface Survey {
   title: string;
   questions: Question[];
   createdAt: string;
+  responseCount?: number;
 }
 
 export interface ResponseData {

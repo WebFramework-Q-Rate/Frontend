@@ -11,6 +11,7 @@ interface TextAnalysisProps {
 export function WordCloud({ textResponses }: TextAnalysisProps) {
   // 단어 빈도 데이터 생성
   const wordCloudData = generateWordCloud(textResponses);
+  const colors = ["#7C3AED", "#8B5CF6"];
 
   // react-d3-cloud 형식에 맞게 데이터 변환
   const data = useMemo(() => {
@@ -31,22 +32,6 @@ export function WordCloud({ textResponses }: TextAnalysisProps) {
         워드클라우드
       </h3>
 
-      {/* 워드클라우드용 linear-gradient 정의 */}
-      <svg width="0" height="0">
-        <defs>
-          <linearGradient
-            id="WORD_GRADIENT"
-            x1="0%"
-            y1="0%"
-            x2="100%"
-            y2="100%"
-          >
-            <stop offset="0%" stopColor="#A78BFA" />
-            <stop offset="100%" stopColor="#6D28D9" />
-          </linearGradient>
-        </defs>
-      </svg>
-
       <div className="w-full" style={{ height: "320px" }}>
         {data.length > 0 ? (
           <Cloud
@@ -63,7 +48,7 @@ export function WordCloud({ textResponses }: TextAnalysisProps) {
               const r = Math.pow(ratio(d.value), 2);
               return 6 + r * 66; // 6px ~ 72px
             }}
-            fill={() => "url(#WORD_GRADIENT)"} // 그라데이션 컬러
+            fill={(_, idx: number) => colors[idx % colors.length]} // PDF 호환 컬러
           />
         ) : (
           <div className="text-center text-gray-500">

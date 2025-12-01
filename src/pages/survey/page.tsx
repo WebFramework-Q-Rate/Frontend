@@ -152,6 +152,33 @@ export default function SurveyPage() {
     allResponses.push(responseData);
     localStorage.setItem(`responses_${id}`, JSON.stringify(allResponses));
 
+    // 설문 목록(responseCount) 업데이트
+    const storedSurveys = localStorage.getItem('surveys');
+    if (storedSurveys) {
+      try {
+        const parsedSurveys = JSON.parse(storedSurveys).map((item: any) =>
+          item.id === id
+            ? { ...item, responseCount: allResponses.length }
+            : item
+        );
+        localStorage.setItem('surveys', JSON.stringify(parsedSurveys));
+      } catch (err) {
+        console.error('설문 목록 업데이트 실패:', err);
+      }
+    }
+
+    // 개별 설문 데이터에도 응답 수 반영
+    const storedSurvey = localStorage.getItem(`survey_${id}`);
+    if (storedSurvey) {
+      try {
+        const parsedSurvey = JSON.parse(storedSurvey);
+        parsedSurvey.responseCount = allResponses.length;
+        localStorage.setItem(`survey_${id}`, JSON.stringify(parsedSurvey));
+      } catch (err) {
+        console.error('설문 데이터 업데이트 실패:', err);
+      }
+    }
+
     // 마이페이지용 응답한 설문 목록에 추가
     const myResponsesString = localStorage.getItem('myResponses');
     const myResponses = myResponsesString ? JSON.parse(myResponsesString) : [];
