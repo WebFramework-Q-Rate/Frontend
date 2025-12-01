@@ -134,8 +134,8 @@ export default function OverviewSection({
         </div>
       </div>
 
-      {/* 요약 통계 4개 카드 */}
-      <div className="grid md:grid-cols-4 gap-6 mb-8">
+      {/* 요약 통계 3개 카드 */}
+      <div className="grid md:grid-cols-3 gap-6 mb-8">
         {/* 총 응답 수 */}
         <div className="bg-white/20 backdrop-blur-md rounded-2xl p-6 border border-white/30 shadow-xl text-center">
           <div className="w-12 h-12 bg-gradient-to-br from-blue-500/80 to-cyan-600/80 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border border-white/20">
@@ -170,16 +170,6 @@ export default function OverviewSection({
           <div className="text-sm text-gray-600">일평균 응답</div>
         </div>
 
-        {/* 완료율 (응답 있으면 100%) */}
-        <div className="bg-white/20 backdrop-blur-md rounded-2xl p-6 border border-white/30 shadow-xl text-center">
-          <div className="w-12 h-12 bg-gradient-to-br from-purple-500/80 to-violet-600/80 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border border-white/20">
-            <i className="ri-bar-chart-line text-white text-xl"></i>
-          </div>
-          <div className="text-2xl font-bold text-gray-800">
-            {responses.length > 0 ? "100%" : "0%"}
-          </div>
-          <div className="text-sm text-gray-600">완료율</div>
-        </div>
       </div>
     </>
   );
