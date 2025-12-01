@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../../components/feature/Header";
 import FooterSection from "../../components/home/FooterSection";
 import PageHeader from "../../components/feature/PageHeader";
+import DeleteConfirmModal from "../../components/mysurveys/DeleteConfirmModal";
 
 interface StoredSurvey {
   id: string;
@@ -24,6 +25,11 @@ export default function MySurveysPage() {
 
   // 로그인 여부
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // 삭제 모달 관련 상태
+  const [selectedSurvey, setSelectedSurvey] = useState<StoredSurvey | null>(
+    null
+  );
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     // 저장된 토큰 확인 → 로그인 여부 판단
@@ -121,17 +127,12 @@ export default function MySurveysPage() {
   };
 
   const handleDeleteSurvey = (surveyId: string) => {
-    if (
-      !window.confirm("해당 설문을 삭제하면 복구할 수 없습니다. 삭제할까요?")
-    ) {
-      return;
-    }
-
     const updated = surveys.filter((survey) => survey.id !== surveyId);
     setSurveys(updated);
     localStorage.setItem("surveys", JSON.stringify(updated));
     localStorage.removeItem(`survey_${surveyId}`);
     localStorage.removeItem(`responses_${surveyId}`);
+    setSelectedSurvey(null);
   };
 
   return (
@@ -200,7 +201,10 @@ export default function MySurveysPage() {
                             {questionCount}문항
                           </span>
                           <button
-                            onClick={() => handleDeleteSurvey(survey.id)}
+                            onClick={() => {
+                              setSelectedSurvey(survey);
+                              setIsDeleteModalOpen(true);
+                            }}
                             className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50/50 backdrop-blur-sm rounded-lg transition-all duration-300 hover:scale-110"
                             aria-label="설문 삭제"
                           >
@@ -242,6 +246,21 @@ export default function MySurveysPage() {
       </main>
 
       <FooterSection />
+
+      <DeleteConfirmModal
+        isOpen={isDeleteModalOpen}
+        surveyTitle={selectedSurvey?.title ?? ""}
+        onConfirm={() => {
+          if (selectedSurvey) {
+            handleDeleteSurvey(selectedSurvey.id);
+          }
+          setIsDeleteModalOpen(false);
+        }}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setSelectedSurvey(null);
+        }}
+      />
     </div>
   );
 }
