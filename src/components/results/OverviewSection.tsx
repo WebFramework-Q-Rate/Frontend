@@ -110,17 +110,15 @@ export default function OverviewSection({
                     heightLeft -= pdfHeight;
                   }
 
-                  // 파일명 자동 생성 후 저장
-                  const fileName = `${
-                    survey.title
-                      ? survey.title.replace(/[^a-z0-9\-\_\s]/gi, "")
-                      : "survey-results"
-                  }.pdf`;
-                  pdf.save(fileName);
+                  // 파일명을 설문 제목.pdf 로 설정
+                  const safeTitle = survey.title
+                    ? survey.title.replace(/[^a-zA-Z0-9가-힣 _-]/g, "")
+                    : "survey-results";
+
+                  pdf.save(`${safeTitle}.pdf`);
 
                   alert("PDF로 저장되었습니다.");
                 } catch (e) {
-                  // 오류 시 콘솔 출력 및 인쇄 대체
                   console.error(e);
                   window.print();
                 }
@@ -169,7 +167,6 @@ export default function OverviewSection({
           </div>
           <div className="text-sm text-gray-600">일평균 응답</div>
         </div>
-
       </div>
     </>
   );
