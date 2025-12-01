@@ -7,34 +7,42 @@ import PageHeader from "../../components/feature/PageHeader";
 interface StoredSurvey {
   id: string;
   title: string;
-  createdAt?: string;
-  creatorId?: string;
-  responseCount?: number;
-  questions?: Array<unknown>;
+  createdAt?: string; // 설문 생성일
+  creatorId?: string; // 설문 생성자 ID
+  responseCount?: number; // 응답 수
+  questions?: Array<unknown>; // 문항 목록
 }
 
-// 내가 만든 설문 페이지
 export default function MySurveysPage() {
+  // 사용자 정보 상태
   const [userId, setUserId] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
+
+  // 설문 목록
   const [surveys, setSurveys] = useState<StoredSurvey[]>([]);
+
+  // 로그인 여부
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // 사용자 정보 및 설문 목록 로드
   useEffect(() => {
-    const savedUserInfo = localStorage.getItem("userInfo");
-    const storedUserId = localStorage.getItem("userId");
-    let resolvedUserId = storedUserId ?? null;
+    // 저장된 토큰 확인 → 로그인 여부 판단
     const token = localStorage.getItem("accessToken");
     setIsLoggedIn(!!token);
 
-    // 사용자 정보가 있으면 파싱하여 상태에 저장
+    // userId 기본값
+    const storedUserId = localStorage.getItem("userId");
+    let resolvedUserId = storedUserId ?? null;
+
+    // 저장된 사용자 정보 불러오기
+    const savedUserInfo = localStorage.getItem("userInfo");
     if (savedUserInfo) {
       try {
         const parsed = JSON.parse(savedUserInfo);
         setUserName(parsed.name ?? null);
         setUserEmail(parsed.email ?? null);
+
+        // userInfo 안에 있는 userId가 있으면 우선 적용
         resolvedUserId = parsed.userId || resolvedUserId;
       } catch (err) {
         console.error("사용자 정보 파싱 오류:", err);
@@ -43,7 +51,7 @@ export default function MySurveysPage() {
 
     setUserId(resolvedUserId);
 
-    // 설문 목록 로드
+    // 저장된 설문 목록 로드
     const savedSurveys = localStorage.getItem("surveys");
     if (savedSurveys) {
       try {
@@ -54,10 +62,11 @@ export default function MySurveysPage() {
     }
   }, []);
 
-  // 내가 만든 설문 필터링
+  // 로그인한 사용자가 만든 설문만 필터링
   const mySurveys = useMemo(() => {
     if (!isLoggedIn) return [];
     if (!userId && !userEmail) return [];
+
     return surveys.filter(
       (survey) =>
         (userId && survey.creatorId === userId) ||
@@ -65,8 +74,10 @@ export default function MySurveysPage() {
     );
   }, [surveys, userId, userEmail, isLoggedIn]);
 
+  // 설문이 없는 경우 표시 컴포넌트
   const renderEmptyState = () => {
     if (!isLoggedIn) {
+      // 비로그인 상태
       return (
         <div className="relative backdrop-blur-xl bg-white/70 rounded-3xl p-12 text-center border border-white/40 shadow-xl overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-purple-500/5 to-transparent"></div>
@@ -88,6 +99,7 @@ export default function MySurveysPage() {
       );
     }
 
+    // 로그인했지만 설문이 없는 상태
     return (
       <div className="relative backdrop-blur-xl bg-white/70 rounded-3xl p-12 text-center border border-white/40 shadow-xl overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-purple-500/5 to-transparent"></div>
@@ -120,6 +132,7 @@ export default function MySurveysPage() {
               ? `${userName ?? "사용자"}님이 생성한 설문 목록입니다.`
               : "로그인 후 내가 만든 설문을 확인할 수 있습니다."
           }
+          // 로그인 시에만 상단 우측 "새 설문 만들기" 버튼 표시
           actions={
             isLoggedIn ? (
               <Link
@@ -136,6 +149,7 @@ export default function MySurveysPage() {
         />
 
         <div className="max-w-6xl mx-auto mt-6">
+          {/* 설문이 없으면 빈 상태 컴포넌트 표시 */}
           {mySurveys.length === 0 ? (
             renderEmptyState()
           ) : (
@@ -155,6 +169,7 @@ export default function MySurveysPage() {
                     <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
 
                     <div className="relative z-10 flex flex-col h-full">
+                      {/* 설문 제목 + 생성일 */}
                       <div className="flex items-start justify-between mb-4">
                         <div>
                           <p className="text-sm text-gray-500 mb-1">
@@ -164,16 +179,20 @@ export default function MySurveysPage() {
                             {survey.title}
                           </h3>
                         </div>
+
+                        {/* 문항 수 */}
                         <span className="px-3 py-1 rounded-full text-sm bg-white/70 border border-white/60 text-gray-700">
                           {questionCount}문항
                         </span>
                       </div>
 
+                      {/* 응답 수 */}
                       <p className="text-gray-600 mb-6 flex items-center">
                         <i className="ri-user-line mr-1"></i>
                         현재 {responseCount}명이 응답했습니다
                       </p>
 
+                      {/* 설문 열기 / 결과 보기 버튼 */}
                       <div className="mt-auto grid grid-cols-2 gap-3">
                         <Link
                           to={`/survey/${survey.id}`}
