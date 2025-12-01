@@ -25,6 +25,21 @@ export interface Survey {
 export default function HomePage() {
   const [surveys, setSurveys] = useState<Survey[]>([]); // 설문 목록 상태 관리
 
+  // 페이지 로드 시 스크롤을 최상단으로 이동 (더 강력한 처리)
+  useEffect(() => {
+    // 즉시 실행
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    
+    // 다음 프레임에서도 한 번 더 실행
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    });
+  }, []);
+
   // 페이지 로드 시 LocalStorage에서 설문 불러오기
   useEffect(() => {
     const savedSurveys = localStorage.getItem("surveys");
