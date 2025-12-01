@@ -98,20 +98,20 @@ export default function Header() {
               <span className="relative z-10">설문 템플릿</span>
             </Link>
             <Link
-              to="/my-surveys"
+              to="/mysurveys"
               className={`relative inline-flex items-center px-5 py-2.5 font-medium rounded-xl cursor-pointer whitespace-nowrap transition-all duration-500 overflow-hidden group ${
-                isActive("/my-surveys")
+                isActive("/mysurveys")
                   ? "text-white shadow-lg shadow-violet-500/30"
                   : "text-gray-700 hover:text-violet-600"
               }`}
             >
-              {isActive("/my-surveys") && (
+              {isActive("/mysurveys") && (
                 <>
                   <div className="absolute inset-0 bg-gradient-to-r from-violet-500 via-purple-500 to-fuchsia-500"></div>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent"></div>
                 </>
               )}
-              {!isActive("/my-surveys") && (
+              {!isActive("/mysurveys") && (
                 <div className="absolute inset-0 bg-gradient-to-r from-violet-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               )}
               <i className="ri-bar-chart-line mr-2 relative z-10"></i>
