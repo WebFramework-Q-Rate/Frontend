@@ -136,15 +136,21 @@ export default function QuestionEditor({
                   }}
                   className="px-3 py-1 text-xs bg-white border border-blue-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
-                  <option value="">건너뛰지 않음</option>
-                  {Array.from({ length: totalQuestions - index }).map((_, i) => {
-                    const targetQuestion = index + i + 1;
-                    return (
-                      <option key={i} value={targetQuestion}>
-                        질문 {targetQuestion}으로 이동
-                      </option>
-                    );
-                  })}
+                  {index < totalQuestions - 1 ? (
+                    <>
+                      <option value={index + 2}>질문 {index + 2}으로 이동</option>
+                      {Array.from({ length: totalQuestions - index - 2 }).map((_, i) => {
+                        const targetQuestion = index + i + 3;
+                        return (
+                          <option key={i} value={targetQuestion}>
+                            질문 {targetQuestion}으로 이동
+                          </option>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <option value="">건너뛰기 없음 (마지막 질문)</option>
+                  )}
                 </select>
               </div>
             ))}
