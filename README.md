@@ -173,6 +173,97 @@ src/
 - **React Hooks** (useState, useEffect, useMemo, useCallback)
 - **LocalStorage** (사용자 정보, 설문 데이터, 응답 데이터)
 
+&nbsp;
+## 📚 주요 라이브러리 설치 및 사용 방법
+
+### 1. React & TypeScript
+프로젝트의 핵심 프레임워크입니다.
+```bash
+npm install react react-dom
+npm install --save-dev @types/react @types/react-dom typescript
+```
+
+### 2. Vite (빌드 도구)
+빠른 개발 서버와 최적화된 프로덕션 빌드를 제공합니다.
+```bash
+npm install --save-dev vite @vitejs/plugin-react-swc
+```
+
+**사용 방법:**
+```bash
+# 개발 서버 실행
+npm run dev
+
+# 프로덕션 빌드
+npm run build
+
+# 빌드 미리보기
+npm run preview
+```
+
+### 3. React Router DOM (라우팅)
+페이지 간 네비게이션을 관리합니다.
+```bash
+npm install react-router-dom
+```
+
+### 4. Tailwind CSS (스타일링)
+유틸리티 우선 CSS 프레임워크입니다.
+```bash
+npm install --save-dev tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+### 5. Framer Motion (애니메이션)
+고급 애니메이션 효과를 구현합니다.
+```bash
+npm install framer-motion
+```
+
+### 6. Recharts (차트)
+응답 결과를 시각화하는 차트 라이브러리입니다.
+```bash
+npm install recharts
+```
+
+### 7. React D3 Cloud (워드클라우드)
+텍스트 응답을 워드클라우드로 시각화합니다.
+```bash
+npm install react-d3-cloud d3-cloud
+```
+
+### 8. jsPDF & html2canvas (PDF 내보내기)
+설문 결과를 PDF로 저장합니다.
+```bash
+npm install jspdf html2canvas
+```
+
+### 9. Lucide React (아이콘)
+모던한 아이콘 세트를 제공합니다.
+```bash
+npm install lucide-react
+```
+
+### 10. i18next (다국어 지원)
+다국어 지원 기능을 구현합니다.
+```bash
+npm install i18next react-i18next i18next-browser-languagedetector
+```
+
+### 11. ESLint (코드 품질 관리)
+코드 스타일과 오류를 검사합니다.
+```bash
+npm install --save-dev eslint @eslint/js eslint-plugin-react-hooks eslint-plugin-react-refresh typescript-eslint
+```
+
+### ※ 모든 라이브러리 한 번에 설치
+프로젝트 최초 설정 시 `package.json`이 있는 경우:
+```bash
+npm install
+```
+
+이 명령어는 `package.json`에 정의된 모든 의존성을 자동으로 설치합니다.
+
 
 &nbsp;
 ## 📝 주요 기능 설명
