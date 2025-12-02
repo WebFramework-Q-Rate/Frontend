@@ -4,7 +4,6 @@ import FeaturesSection from "../../components/home/FeaturesSection";
 import TemplateSection from "../../components/home/TemplateSection";
 import SurveyTypesSection from "../../components/home/SurveyTypesSection";
 import ResultVisualizationSection from "../../components/home/ResultVisualizationSection";
-import RecentSurveys from "../../components/home/RecentSurveys";
 import FooterSection from "../../components/home/FooterSection";
 
 // 메인 페이지
