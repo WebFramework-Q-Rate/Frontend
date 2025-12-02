@@ -11,8 +11,7 @@ Object.keys(modules).forEach((path) => {
     if (!messages[lang]) {
       messages[lang] = { translation: {} };
     }
-    
-    // 合并翻译内容
+    // 번역 콘텐츠를 병합
     if (module.default) {
       messages[lang].translation = {
         ...messages[lang].translation,
