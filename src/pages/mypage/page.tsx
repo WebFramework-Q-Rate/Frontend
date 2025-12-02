@@ -22,30 +22,14 @@ interface RespondedSurvey {
 
 export default function MyPage() {
   const [userInfo, setUserInfo] = useState<UserInfo>({
-    name: '유진',
-    email: 'jin@gmail.com',
-    gender: '여성',
-    age: '19-24',
-    joinDate: '2025-11-01'
+    name: '',
+    email: '',
+    gender: '',
+    age: '',
+    joinDate: ''
   });
 
-  const [respondedSurveys, setRespondedSurveys] = useState<RespondedSurvey[]>([
-    {
-      id: '1',
-      title: '고객 만족도 조사',
-      respondedAt: '2025-11-20'
-    },
-    {
-      id: '2',
-      title: '제품 피드백 설문',
-      respondedAt: '2025-11-18'
-    },
-    {
-      id: '3',
-      title: '서비스 개선 의견 수집',
-      respondedAt: '2025-11-15'
-    }
-  ]);
+  const [respondedSurveys, setRespondedSurveys] = useState<RespondedSurvey[]>([]);
 
   const [createdSurveyCount, setCreatedSurveyCount] = useState(0);
 
