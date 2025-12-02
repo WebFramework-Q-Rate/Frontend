@@ -17,6 +17,7 @@ interface UserInfo {
 interface RespondedSurvey {
   id: string;
   title: string;
+  responderId: string;
   respondedAt: string;
 }
 
@@ -52,12 +53,20 @@ export default function MyPage() {
           console.error('설문 목록 파싱 오류:', err);
         }
       }
-    }
 
-    // 응답한 설문 목록 불러오기
-    const savedResponses = localStorage.getItem('myResponses');
-    if (savedResponses) {
-      setRespondedSurveys(JSON.parse(savedResponses));
+      // 응답한 설문 목록 불러오기 (로그인한 사용자의 것만)
+      const savedResponses = localStorage.getItem('myResponses');
+      if (savedResponses) {
+        try {
+          const allResponses = JSON.parse(savedResponses);
+          const userEmail = parsed.email;
+          // 현재 로그인한 사용자의 응답만 필터링
+          const filteredResponses = allResponses.filter((response: any) => response.responderId === userEmail);
+          setRespondedSurveys(filteredResponses);
+        } catch (err) {
+          console.error('응답 목록 파싱 오류:', err);
+        }
+      }
     }
   }, []);
 
