@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link, useLocation } from 'react-router-dom';
 import Header from '../../components/feature/Header';
 import PageHeader from '../../components/feature/PageHeader';
+import FooterSection from '../../components/home/FooterSection';
 import SurveyTitleInput from '../../components/survey/SurveyTitleInput';
 import QuestionEditor from '../../components/survey/QuestionEditor';
 import SurveyPreview from '../../components/survey/SurveyPreview';
@@ -237,7 +238,7 @@ export default function CreatePage() {
 
   return (
     // 전체 페이지 컨테이너 - 보라색 그라데이션 배경
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-violet-100 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 flex flex-col">
       <Header />
       
       <main className="flex-1 py-12 px-4 lg:px-8">
@@ -345,6 +346,8 @@ export default function CreatePage() {
             </div>
           )}
       </main>
+
+      <FooterSection />
 
       {/* 설문 공유 모달 */}
       <SurveyShareModal
