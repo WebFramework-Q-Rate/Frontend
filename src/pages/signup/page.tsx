@@ -6,7 +6,7 @@ export default function SignupPage() {
   return (
     <AuthLayout
       title="회원가입"
-      subtitle="Q+rate와 함께 시작하세요"
+      subtitle="Q+Rate와 함께 시작하세요"
     >
       <SignupForm />
     </AuthLayout>

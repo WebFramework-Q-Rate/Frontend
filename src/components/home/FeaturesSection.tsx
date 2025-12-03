@@ -31,7 +31,7 @@ export default function FeaturesSection() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent mb-4">
-            왜 Q+rate를 선택해야 할까요?
+            왜 Q+Rate를 선택해야 할까요?
           </h2>
           <p className="text-xl text-gray-600">
             전문적인 설문 조사를 위한 완벽한 솔루션

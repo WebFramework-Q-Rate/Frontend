@@ -6,7 +6,7 @@ export default function LoginPage() {
   return (
     <AuthLayout
       title="로그인"
-      subtitle="Q+rate에 오신 것을 환영합니다"
+      subtitle="Q+Rate에 오신 것을 환영합니다"
     >
       <LoginForm />
     </AuthLayout>

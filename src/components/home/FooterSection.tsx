@@ -7,20 +7,20 @@ export default function FooterSection() {
       <div className="max-w-6xl mx-auto text-center px-4">
         {/* 로고 및 사이트명 */}
         <div className="flex items-center justify-center space-x-1 mb-4">
-          <img src={logo} alt="Q+rate Logo" className="w-10 h-10" />
+          <img src={logo} alt="Q+Rate Logo" className="w-10 h-10" />
           <span className="text-2xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent">
-            Q+rate
+            Q+Rate
           </span>
         </div>
 
         {/* 저작권 정보 */}
         <p className="text-gray-600 mb-2">
-          © 2025 Q+rate. All rights reserved.
+          © 2025 Q+Rate. All rights reserved.
         </p>
 
         {/* 개발팀 정보 */}
         <p className="text-violet-600 hover:text-violet-700 transition">
-          A Project by the Q+rate Development Team
+          A Project by the Q+Rate Development Team
         </p>
       </div>
     </footer>

@@ -40,7 +40,7 @@ export default function Header() {
           <Link to="/" className="flex items-center space-x-1 group">
             <img
               src={logo}
-              alt="Q+rate Logo"
+              alt="Q+Rate Logo"
               className="w-12 h-12 object-contain"
             />
             <div className="flex flex-col">
@@ -48,7 +48,7 @@ export default function Header() {
                 className="text-2xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent drop-shadow-sm"
                 style={{ fontFamily: '"Poppins", sans-serif' }}
               >
-                Q+rate
+                Q+Rate
               </span>
               <span className="text-xs text-gray-500/80 -mt-1">
                 Survey Insights Platform

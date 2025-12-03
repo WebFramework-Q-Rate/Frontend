@@ -28,12 +28,12 @@ export default function AuthLayout({ title, subtitle, children }: AuthLayoutProp
       <div className="relative w-full max-w-md">
         {/* 상단 로고 */}
         <Link to="/" className="flex items-center justify-center space-x-3 mb-8 group">
-          <img src={logo} alt="Q+rate Logo" className="w-14 h-14 object-contain" />
+          <img src={logo} alt="Q+Rate Logo" className="w-14 h-14 object-contain" />
           <span
             className="text-3xl font-bold bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent drop-shadow-sm"
             style={{ fontFamily: '"Poppins", sans-serif' }}
           >
-            Q+rate
+            Q+Rate
           </span>
         </Link>
 
